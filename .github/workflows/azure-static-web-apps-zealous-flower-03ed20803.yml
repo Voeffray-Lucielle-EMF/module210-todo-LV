@@ -10,6 +10,18 @@ on:
       - main
 
 jobs:
+  check_if_index-html_exists:
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    runs-on: ubuntu-latest
+    id: file_check
+    run: |
+      if git status -s | grep -x "** index.html"; then
+      echo "Le fichier index.html existe” >> $GITHUB_OUTPUT
+    else
+      echo "Erreur - index.html n’existe pas!”  >> $GITHUB_OUTPUT
+      exit 1
+    fi
+
   build_and_deploy_job:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
@@ -42,4 +54,4 @@ jobs:
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_ZEALOUS_FLOWER_03ED20803 }}
-          action: "close"
+          action: "close" 
