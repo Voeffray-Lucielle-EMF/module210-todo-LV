@@ -4,10 +4,8 @@ on:
   push:
     branches:
       - main  # Déclenchement lorsque le code est poussé sur main
-
-env:
-  REG_NAME: "nomduregistre" # Nom du registre sans "azurecr.io"
-  IMAGE_NAME: "backend-app" # Nom de votre image dans acr
+    paths:
+      - './src/backend'
 
 jobs:
   build-and-deploy:
@@ -17,6 +15,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: etape à réaliser
-        run: |
-          docker build -t exo.container-registry.com/c213-emf/todo-app-voel:latest ./src/backend
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          registry: exo.container-registry.com
+          username: ${{ secrets.EXO_REGISTRY_EMF_EMAIL }}
+          password: ${{ secrets.EXO_REGISTRY_EMF }}
+          
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+        
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: ./src/backend
+          push: true
+          tags: exo.container-registry.com/c213-emf/todo-app-voel:latest
