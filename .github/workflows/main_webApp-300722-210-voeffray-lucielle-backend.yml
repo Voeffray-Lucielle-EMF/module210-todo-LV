@@ -31,7 +31,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: exo.container-registry.com/${{ secrets.AzureAppService_ContainerUsername_5d95e9a3059b4c778630c94874af8bf6 }}/c213-emf/todo-app-voel:${{ github.sha }}
+        tags: exo.container-registry.com/${{ secrets.AzureAppService_ContainerUsername_5d95e9a3059b4c778630c94874af8bf6 }}/c213-emf/todo-app-voel:cicdbckazure
         file: ./src/backend/Dockerfile
 
   deploy:
