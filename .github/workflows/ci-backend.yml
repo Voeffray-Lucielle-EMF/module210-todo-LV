@@ -49,4 +49,4 @@ jobs:
         app-name: 'webApp-300722-210-voeffray-lucielle-backend'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_5afd5ad6249a402f9625e30a1f17fc58 }}
-        images: 'exo.container-registry.com/c213-emf/todo-app-voel:${{ github.sha }}'
+        images: 'exo.container-registry.com/c213-emf/todo-app-voel:latest'
