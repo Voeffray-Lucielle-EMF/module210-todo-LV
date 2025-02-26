@@ -7,6 +7,7 @@ on:
   push:
     branches:
       - main
+    paths: 'src/backend/**'
   workflow_dispatch:
 
 jobs:
@@ -31,7 +32,7 @@ jobs:
       with:
         push: true
         tags: exo.container-registry.com/${{ secrets.AzureAppService_ContainerUsername_5d95e9a3059b4c778630c94874af8bf6 }}/c213-emf/todo-app-voel:${{ github.sha }}
-        file: ./Dockerfile
+        file: ./src/backend/Dockerfile
 
   deploy:
     runs-on: ubuntu-latest
