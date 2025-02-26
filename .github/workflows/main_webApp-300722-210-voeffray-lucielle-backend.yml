@@ -32,7 +32,8 @@ jobs:
       with:
         push: true
         tags: exo.container-registry.com/c213-emf/todo-app-voel:${{ github.sha }}
-        file: ./src/backend/Dockerfile
+        app_location: "src/frontend"
+        output_location: "build"
 
   deploy:
     runs-on: ubuntu-latest
